@@ -1,0 +1,233 @@
+/* ─── Piff Style Intro Page ─── */
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  font-family: var(--font-family);
+  background-color: var(--bg-dark);
+  color: var(--text-main);
+  min-height: 100vh;
+}
+
+.bigbody {
+  position: relative;
+  display: flex;
+  flex-direction: row;
+  min-height: 100vh;
+  background: transparent;
+}
+
+/* ─── Left section ─── */
+.bodyIntro {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  background: linear-gradient(135deg, rgba(108, 92, 231, 0.1), rgba(0, 210, 211, 0.05));
+  position: relative;
+  overflow: hidden;
+  justify-content: space-between;
+}
+
+.bodyIntro::after {
+  content: '';
+  position: absolute;
+  bottom: -10%;
+  left: -10%;
+  width: 400px;
+  height: 400px;
+  border-radius: 50%;
+  background: rgba(108, 92, 231, 0.15);
+  filter: blur(80px);
+  pointer-events: none;
+}
+
+/* ─── Navbar ─── */
+.nav {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 2.5rem 3.5rem;
+}
+
+.intro-logo {
+  height: 64px;
+  width: auto;
+  max-width: 220px;
+  object-fit: contain;
+  border-radius: 12px;
+  padding: 4px 10px;
+  cursor: pointer;
+}
+
+/* ─── Hero text ─── */
+.text {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 4rem 4rem 8rem 5rem;
+  z-index: 1;
+}
+
+.text h1 {
+  font-size: 3.25rem;
+  font-weight: 800;
+  line-height: 1.15;
+  color: var(--text-main);
+  margin-bottom: 1.5rem;
+  letter-spacing: -1px;
+}
+
+.text p {
+  font-size: 1.15rem;
+  color: var(--text-muted);
+  line-height: 1.6;
+  max-width: 480px;
+  margin-bottom: 0.5rem;
+}
+
+/* ─── Login container (Right section) ─── */
+.Logincontainer {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 3rem;
+  background: transparent;
+}
+
+.Logincontainer h1.login {
+  font-size: 1.85rem;
+  font-weight: 700;
+  color: var(--text-main);
+  margin-bottom: 0.5rem;
+  text-align: center;
+  letter-spacing: -0.5px;
+}
+
+.Logincontainer::before {
+  content: 'Use your Poketrako Account';
+  font-size: 0.95rem;
+  color: var(--text-muted);
+  margin-bottom: 2rem;
+  display: block;
+}
+
+/* ─── Form ─── */
+form {
+  width: 100%;
+  max-width: 380px;
+  background: var(--bg-card);
+  backdrop-filter: blur(15px);
+  -webkit-backdrop-filter: blur(15px);
+  border: 1px solid var(--border-light);
+  border-radius: var(--border-radius-lg);
+  padding: 2.5rem 2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+  box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+}
+
+/* Input groups styling */
+.input-group {
+  position: relative;
+  width: 100%;
+}
+
+.input-icon {
+  position: absolute;
+  left: 1.1rem;
+  top: 50%;
+  transform: translateY(-50%);
+  color: var(--text-muted);
+  font-size: 1.1rem;
+  pointer-events: none;
+  transition: color 0.2s;
+  z-index: 10;
+  display: block !important;
+}
+
+input.glass-input {
+  width: 100%;
+  padding: 0.95rem 1.1rem 0.95rem 2.8rem;
+  min-height: 48px;
+}
+
+input.glass-input::placeholder { color: rgba(255, 255, 255, 0.3); }
+.input-group:focus-within .input-icon { color: var(--primary); }
+
+form svg { display: none; } /* keep original rule */
+
+/* ─── Error ─── */
+.error {
+  color: var(--danger);
+  font-size: 0.88rem;
+  text-align: center;
+  background: rgba(255, 71, 87, 0.15);
+  border: 1px solid rgba(255, 71, 87, 0.2);
+  border-radius: 8px;
+  padding: 0.65rem 0.8rem;
+  margin: 0;
+  font-weight: 500;
+}
+
+/* ─── Links ─── */
+.forgot-password {
+  color: var(--accent);
+  font-size: 0.88rem;
+  text-decoration: none;
+  font-weight: 600;
+  text-align: left;
+  transition: color 0.2s;
+}
+
+.forgot-password:hover {
+  color: #00e5e5;
+  text-decoration: underline;
+}
+
+/* ─── Button ─── */
+button[type="submit"] { margin-top: 0.5rem; min-height: 48px; }
+
+/* ─── Footer Text (Sign-up link) ─── */
+p {
+  text-align: center;
+  color: var(--text-muted);
+  font-size: 0.88rem;
+  margin-top: 0.5rem;
+}
+
+p a {
+  color: var(--accent);
+  text-decoration: none;
+  font-weight: 600;
+}
+
+p a:hover {
+  text-decoration: underline;
+}
+
+/* ─── Responsive tablettes ─── */
+@media (max-width: 900px) {
+  .bigbody { flex-direction: column; }
+  .bodyIntro { flex: none; padding: 1rem 0; }
+  .nav { padding: 1.5rem; justify-content: center; }
+  .text { padding: 1.5rem 1.5rem 2.5rem; align-items: center; text-align: center; }
+  .text h1 { font-size: 2.25rem; }
+  .Logincontainer { padding: 2rem 1.5rem; }
+}
+
+/* ─── Responsive petits mobiles ─── */
+@media (max-width: 480px) {
+  .bigbody { flex-direction: column; min-height: 100dvh; }
+  .bodyIntro { padding: 0; }
+  .nav { padding: 1.25rem 1rem; }
+  .text { padding: 1rem 1.25rem 1.5rem; }
+  .text h1 { font-size: 1.6rem; letter-spacing: -0.5px; margin-bottom: 0.75rem; }
+  .text p { font-size: 0.92rem; line-height: 1.5; }
+  .Logincontainer { padding: 1.5rem 1rem; padding-bottom: calc(1.5rem + env(safe-area-inset-bottom, 0px)); }
+  .Logincontainer h1.login { font-size: 1.35rem; }
+  .Logincontainer::before { font-size: 0.85rem; margin-bottom: 1.25rem; }
+  form { padding: 1.5rem 1.25rem; border-radius: 20px; gap: 1rem; }
+}

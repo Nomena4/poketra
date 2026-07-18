@@ -1,0 +1,181 @@
+.gpay-activity-container {
+  background: var(--bg-card);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid transparent;
+  background-clip: padding-box;
+  border-radius: var(--border-radius-lg);
+  padding: 1.5rem;
+  box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+  display: flex;
+  flex-direction: column;
+  min-height: 250px;
+  position: relative;
+}
+
+/* Simulated Gradient Border for Glass */
+.gpay-activity-container::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0; bottom: 0;
+  border-radius: inherit;
+  padding: 1px;
+  background: linear-gradient(135deg, rgba(255,255,255,0.2), rgba(255,255,255,0.02));
+  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  pointer-events: none;
+}
+
+.gpay-activity-container h3 {
+  font-size: 1.02rem;
+  font-weight: 700;
+  color: var(--gpay-text-primary);
+  margin-bottom: 1rem;
+  font-family: var(--gpay-font);
+}
+
+.gpay-activity-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.gpay-activity-item-wrapper {
+  display: flex;
+  flex-direction: column;
+  border-radius: var(--gpay-radius-sm);
+  transition: background-color 0.2s;
+  cursor: pointer;
+}
+
+.gpay-activity-item-wrapper:hover {
+  background-color: var(--gpay-divider);
+}
+
+.gpay-activity-item {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 0.8rem 0.5rem;
+  border-radius: var(--gpay-radius-sm);
+}
+
+.gpay-activity-expanded-details {
+  padding: 0 1rem 1rem 4rem;
+  font-size: 0.85rem;
+  color: var(--gpay-text-light);
+  animation: slideDown 0.2s ease-out;
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+}
+
+.gpay-activity-expanded-details p {
+  margin: 0;
+}
+
+.gpay-activity-expanded-details strong {
+  color: var(--gpay-text-primary);
+  font-weight: 600;
+}
+
+@keyframes slideDown {
+  from {
+    opacity: 0;
+    transform: translateY(-5px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Avatar circulaire style Google Pay */
+.gpay-activity-avatar {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.05rem;
+  color: white;
+  flex-shrink: 0;
+  box-shadow: var(--gpay-shadow-subtle);
+  font-family: var(--gpay-font);
+  transition: transform 0.2s;
+}
+
+.gpay-activity-avatar.expense-avatar {
+  background-color: var(--gpay-red-container);
+  color: var(--gpay-red);
+}
+
+.gpay-activity-avatar.income-avatar {
+  background-color: var(--gpay-green-container);
+  color: var(--gpay-green);
+}
+
+.gpay-activity-details {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  min-width: 0;
+}
+
+.gpay-activity-title {
+  font-size: 0.92rem;
+  font-weight: 600;
+  color: var(--gpay-text-primary);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.gpay-activity-date {
+  font-size: 0.78rem;
+  color: var(--gpay-text-light);
+  margin-top: 1px;
+}
+
+.gpay-activity-amount {
+  font-size: 0.95rem;
+  font-weight: 700;
+  letter-spacing: -0.1px;
+  font-family: var(--gpay-font);
+  flex-shrink: 0;
+}
+
+.gpay-activity-amount.negative {
+  color: var(--gpay-text-primary);
+}
+
+.gpay-activity-amount.positive {
+  color: var(--gpay-green);
+}
+
+.gpay-activity-empty {
+  text-align: center;
+  padding: 2.5rem 0;
+  color: var(--gpay-text-light);
+  font-size: 0.88rem;
+}
+
+/* ─── Responsive ─── */
+@media (max-width: 768px) {
+  .gpay-activity-container {
+    padding: 1.25rem 1rem;
+  }
+
+  .gpay-activity-avatar {
+    width: 36px;
+    height: 36px;
+    font-size: 0.9rem;
+  }
+
+  .gpay-activity-item {
+    gap: 0.75rem;
+    padding: 0.65rem 0.25rem;
+  }
+}

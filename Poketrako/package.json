@@ -1,0 +1,53 @@
+{
+  "name": "poketrako-desktop",
+  "version": "1.0.0",
+  "description": "Poketrako Offline Desktop Application",
+  "author": "Rabma",
+  "dependencies": {
+    "@capacitor/android": "^8.4.0",
+    "@capacitor/cli": "^8.4.0",
+    "@capacitor/core": "^8.4.0"
+  },
+  "devDependencies": {
+    "concurrently": "^10.0.3",
+    "cross-env": "^10.1.0",
+    "electron": "^42.4.1",
+    "electron-builder": "^26.15.3",
+    "wait-on": "^9.0.10"
+  },
+  "main": "electron/main.js",
+  "scripts": {
+    "dev:frontend": "npm run dev --prefix frontend",
+    "electron:dev": "concurrently \"npm run dev:frontend\" \"wait-on http://localhost:5173 && electron .\"",
+    "build:frontend": "npm run build --prefix frontend",
+    "electron:build": "npm run build:frontend && electron-builder"
+  },
+  "build": {
+    "appId": "com.poketrako.desktop",
+    "productName": "Poketrako",
+    "icon": "electron/icon.ico",
+    "files": [
+      "electron/**/*",
+      "frontend/dist/**/*",
+      "package.json"
+    ],
+    "directories": {
+      "output": "dist"
+    },
+    "extraResources": [
+      {
+        "from": "Backend",
+        "to": "Backend",
+        "filter": [
+          "**/*",
+          "!node_modules/.cache/**/*",
+          "!tests/**/*"
+        ]
+      }
+    ],
+    "win": {
+      "icon": "electron/icon.ico",
+      "target": ["portable"]
+    }
+  }
+}
