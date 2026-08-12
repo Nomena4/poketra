@@ -1,29 +1,30 @@
-### IntelliJ IDEA ###
-out/
-!**/src/main/**/out/
-!**/src/test/**/out/
+# Node
+node_modules/
+npm-debug.log*
 
-### Eclipse ###
-.apt_generated
-.classpath
-.factorypath
-.project
-.settings
-.springBeans
-.sts4-cache
-bin/
-!**/src/main/**/bin/
-!**/src/test/**/bin/
+# Environment variables (sensitive - never commit)
+.env
+.env.local
+.env.*.local
 
-### NetBeans ###
-/nbproject/private/
-/nbbuild/
-/dist/
-/nbdist/
-/.nb-gradle/
+# Build output
+frontend/dist/
+dist/
 
-### VS Code ###
-.vscode/
+# Prisma generated client
+Backend/node_modules/
+Backend/.prisma/
 
-### Mac OS ###
+# Uploads (user files)
+Backend/uploads/
+
+# OS
 .DS_Store
+Thumbs.db
+
+# IDE
+.vscode/
+.idea/
+
+# Logs
+*.log

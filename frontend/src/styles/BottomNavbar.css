@@ -1,0 +1,83 @@
+.bottom-navbar {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: calc(60px + env(safe-area-inset-bottom, 0px));
+  background: var(--bg-card, rgba(255, 255, 255, 0.90));
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+  border-top: 1px solid var(--border-strong, var(--gpay-border));
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  padding-bottom: env(safe-area-inset-bottom, 0px);
+  z-index: 1000;
+  box-shadow: 0 -8px 24px rgba(0, 0, 0, 0.2);
+  display: none; /* Cache par défaut sur PC */
+}
+
+.bottom-nav-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  flex: 1;
+  height: 100%;
+  color: var(--gpay-text-secondary);
+  text-decoration: none;
+  font-family: var(--gpay-font);
+  font-size: 0.7rem;
+  font-weight: 600;
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  gap: 3px;
+  padding-top: 4px;
+}
+
+.bottom-nav-item:active {
+  transform: scale(0.95);
+}
+
+.bottom-nav-icon {
+  font-size: 1.3rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 56px;
+  height: 28px;
+  border-radius: 14px;
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Style de pilule active type Material 3 / Modern Glow */
+.bottom-nav-item.active {
+  color: var(--text-main);
+  font-weight: 800;
+}
+
+.bottom-nav-item.active .bottom-nav-icon {
+  background: linear-gradient(135deg, var(--primary), var(--accent));
+  color: white;
+  box-shadow: 0 8px 24px rgba(0, 210, 211, 0.4), 0 0 15px rgba(108, 92, 231, 0.5);
+  transform: translateY(-6px) scale(1.1);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+.bottom-nav-item.active::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  width: 4px;
+  height: 4px;
+  background: var(--accent);
+  border-radius: 50%;
+  box-shadow: 0 0 8px var(--accent);
+  animation: float 2s infinite ease-in-out;
+}
+
+/* Media query pour l'affichage mobile */
+@media screen and (max-width: 768px) {
+  .bottom-navbar {
+    display: flex;
+  }
+}

@@ -1,0 +1,134 @@
+.summary-section {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  flex-shrink: 0;
+}
+
+.summary-stats-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1rem;
+}
+
+.gpay-stat-card {
+  background: var(--bg-card);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid transparent;
+  background-clip: padding-box;
+  border-radius: var(--border-radius-lg);
+  padding: 1.25rem;
+  box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  transition: transform 0.4s cubic-bezier(0.2, 0.8, 0.2, 1), box-shadow 0.4s ease, border-color 0.4s ease;
+  min-height: 120px;
+  position: relative;
+}
+
+/* Simulated Gradient Border for Glass */
+.gpay-stat-card::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0; bottom: 0;
+  border-radius: inherit;
+  padding: 1px;
+  background: linear-gradient(135deg, rgba(255,255,255,0.2), rgba(255,255,255,0.02));
+  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  pointer-events: none;
+}
+
+.gpay-stat-card.clickable {
+  cursor: pointer;
+}
+
+.gpay-stat-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 16px 40px 0 rgba(0, 0, 0, 0.6), 0 0 20px rgba(108, 92, 231, 0.15);
+  background: var(--bg-card-hover);
+}
+
+.gpay-stat-header {
+  display: flex;
+  align-items: center;
+  gap: 0.65rem;
+  margin-bottom: 0.75rem;
+}
+
+.gpay-stat-icon-wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  font-size: 1rem;
+  flex-shrink: 0;
+}
+
+.gpay-stat-icon-wrapper.income {
+  background: rgba(46, 213, 115, 0.15);
+  color: var(--success);
+}
+
+.gpay-stat-icon-wrapper.expense {
+  background: rgba(255, 71, 87, 0.15);
+  color: var(--danger);
+}
+
+.gpay-stat-icon-wrapper.budget {
+  background: rgba(108, 92, 231, 0.15);
+  color: var(--primary);
+}
+
+.gpay-stat-label {
+  font-size: 0.82rem;
+  font-weight: 600;
+  color: var(--text-muted);
+}
+
+.gpay-stat-value {
+  font-size: 1.2rem;
+  font-weight: 700;
+  letter-spacing: -0.2px;
+  margin-top: auto;
+  color: var(--text-main);
+}
+
+.gpay-stat-value.positive { color: var(--success); }
+.gpay-stat-value.negative { color: var(--danger); }
+
+.card-income { border-bottom: 4px solid var(--success); }
+.card-expense { border-bottom: 4px solid var(--danger); }
+.card-budget.positive-border { border-bottom: 4px solid var(--success); }
+.card-budget.negative-border { border-bottom: 4px solid var(--danger); }
+
+/* ─── Responsive ─── */
+@media (max-width: 1024px) {
+  .summary-section { grid-template-columns: 1fr; }
+}
+
+@media (max-width: 768px) {
+  .summary-stats-grid { grid-template-columns: repeat(3, 1fr); gap: 0.75rem; }
+  .gpay-stat-card { padding: 1rem; min-height: 90px; }
+  .gpay-stat-value { font-size: 0.95rem; }
+  .gpay-stat-label { font-size: 0.72rem; }
+}
+
+@media (max-width: 480px) {
+  .summary-stats-grid { grid-template-columns: 1fr; gap: 0.6rem; }
+  .gpay-stat-card {
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    min-height: auto;
+    padding: 0.9rem 1rem;
+    gap: 0.5rem;
+  }
+  .gpay-stat-header { margin-bottom: 0; flex: 1; }
+  .gpay-stat-value { font-size: 1rem; margin-top: 0; text-align: right; flex-shrink: 0; }
+}

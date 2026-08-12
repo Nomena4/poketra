@@ -1,0 +1,175 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id                   Int             @id @default(autoincrement())
+  fullName             String?
+  email                String          @unique
+  password             String
+  expenses             Expense[]
+  incomes              Income[]
+  receiptUploads       ReceiptUpload[]
+  createdAt            DateTime        @default(now())
+  updatedAt            DateTime        @updatedAt
+  budget               Decimal?        @default(0)
+  resetPasswordToken   String?
+  resetPasswordExpires DateTime?
+  avatar               String?
+  companyProfile       CompanyProfile?
+  clients              Client[]
+  invoices             Invoice[]
+}
+
+model Category {
+  id        Int       @id @default(autoincrement())
+  name      String    @unique
+  expenses  Expense[]
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+}
+
+enum ExpenseType {
+  ONE_TIME
+  RECURRING
+}
+
+model Expense {
+  id              Int            @id @default(autoincrement())
+  amount          Decimal
+  date            DateTime?
+  categoryId      Int
+  category        Category    @relation(fields: [categoryId], references: [id])
+  description     String?
+  type            ExpenseType    @default(ONE_TIME)
+  creationDate    DateTime       @default(now())
+  startDate       DateTime?
+  endDate         DateTime?
+  userId          Int
+  user            User           @relation(fields: [userId], references: [id])
+  receiptUploadId Int?
+  receiptUpload   ReceiptUpload? @relation(fields: [receiptUploadId], references: [id])
+
+  @@index([userId])
+  @@index([categoryId])
+  @@index([type])
+}
+
+
+model Income {
+  id           Int      @id @default(autoincrement())
+  amount       Decimal
+  date         DateTime
+  source       String
+  description  String?
+  creationDate DateTime @default(now())
+  userId       Int
+  user         User     @relation(fields: [userId], references: [id])
+
+  @@index([userId])
+  @@index([date])
+}
+
+model ReceiptUpload {
+  id          Int       @id @default(autoincrement())
+  filename    String
+  url         String
+  contentType String
+  size        Int
+  uploadedAt  DateTime  @default(now())
+  userId      Int
+  user        User      @relation(fields: [userId], references: [id])
+  expense     Expense[]
+}
+
+// ==========================================
+// Enterprise Modules
+// ==========================================
+
+model CompanyProfile {
+  id          Int      @id @default(autoincrement())
+  companyName String
+  nif         String?
+  stat        String?
+  address     String?
+  phone       String?
+  email       String?
+  logoUrl     String?
+  currency    String   @default("Ar")
+  userId      Int      @unique
+  user        User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
+enum ClientType {
+  CLIENT
+  SUPPLIER
+}
+
+model Client {
+  id          Int        @id @default(autoincrement())
+  name        String
+  email       String?
+  phone       String?
+  address     String?
+  nif         String?
+  stat        String?
+  type        ClientType @default(CLIENT)
+  userId      Int
+  user        User       @relation(fields: [userId], references: [id], onDelete: Cascade)
+  invoices    Invoice[]
+  createdAt   DateTime   @default(now())
+  updatedAt   DateTime   @updatedAt
+
+  @@index([userId])
+}
+
+enum InvoiceStatus {
+  DRAFT
+  PENDING
+  PAID
+  CANCELLED
+  OVERDUE
+}
+
+model Invoice {
+  id            Int           @id @default(autoincrement())
+  invoiceNumber String
+  issueDate     DateTime      @default(now())
+  dueDate       DateTime?
+  status        InvoiceStatus @default(PENDING)
+  taxRate       Decimal       @default(0) // e.g., 20 for 20%
+  subtotal      Decimal       @default(0)
+  taxAmount     Decimal       @default(0)
+  totalAmount   Decimal       @default(0)
+  notes         String?
+  attachmentUrl String?
+  attachmentName String?
+  userId        Int
+  user          User          @relation(fields: [userId], references: [id], onDelete: Cascade)
+  clientId      Int?
+  client        Client?       @relation(fields: [clientId], references: [id], onDelete: SetNull)
+  items         InvoiceItem[]
+  createdAt     DateTime      @default(now())
+  updatedAt     DateTime      @updatedAt
+
+  @@index([userId])
+  @@index([clientId])
+}
+
+model InvoiceItem {
+  id          Int     @id @default(autoincrement())
+  description String
+  quantity    Decimal @default(1)
+  unitPrice   Decimal @default(0)
+  totalPrice  Decimal @default(0)
+  invoiceId   Int
+  invoice     Invoice @relation(fields: [invoiceId], references: [id], onDelete: Cascade)
+}
+

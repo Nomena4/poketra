@@ -1,0 +1,23 @@
+/* Caisse.css */
+/* Reuses gpay-activity-* and expense-form classes for forms and lists */
+
+.caisse-badge {
+  display: inline-block;
+  padding: 0.25rem 0.6rem;
+  border-radius: 12px;
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+}
+.caisse-badge.deposit {
+  background: var(--gpay-green-container, rgba(46, 213, 115, 0.15));
+  color: var(--gpay-green, #2ed573);
+}
+.caisse-badge.withdrawal {
+  background: var(--gpay-red-container, rgba(255, 71, 87, 0.15));
+  color: var(--gpay-red, #ff4757);
+}
+.caisse-badge.transfer {
+  background: rgba(0, 210, 211, 0.15);
+  color: #00d2d3;
+}
